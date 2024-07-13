@@ -44,3 +44,49 @@ Migrating to CreateAccounts (20240713182655)
   [1m[36mAccount Update (0.5ms)[0m  [1m[33mUPDATE "accounts" SET "user_id" = ?, "updated_at" = ? WHERE "accounts"."id" = ?[0m  [["user_id", 0], ["updated_at", "2024-07-13 18:35:16.689846"], ["id", 1]]
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
   [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" WHERE "accounts"."user_id" = ? /* loading for pp */ LIMIT ?[0m  [["user_id", nil], ["LIMIT", 11]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateMusics (20240713231215)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "musics" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240713231215') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateArtists (20240713231249)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "artists" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240713231249') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateArtistSonJoinTable (20240713231357)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "artists_songs" ("artist_id" integer, "song_id" integer)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240713231357') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMusic Create (0.4ms)[0m  [1m[32mINSERT INTO "musics" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "Assalto Perigoso"], ["created_at", "2024-07-13 23:19:18.934375"], ["updated_at", "2024-07-13 23:19:18.934375"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMusic Create (0.7ms)[0m  [1m[32mINSERT INTO "musics" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "Assalto Proibido"], ["created_at", "2024-07-13 23:19:37.742247"], ["updated_at", "2024-07-13 23:19:37.742247"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mMusic Load (0.2ms)[0m  [1m[34mSELECT "musics".* FROM "musics" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mArtist Create (0.5ms)[0m  [1m[32mINSERT INTO "artists" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "Melody"], ["created_at", "2024-07-13 23:20:08.702167"], ["updated_at", "2024-07-13 23:20:08.702167"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mArtist Create (0.9ms)[0m  [1m[32mINSERT INTO "artists" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "Anitta"], ["created_at", "2024-07-13 23:20:17.424423"], ["updated_at", "2024-07-13 23:20:17.424423"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mArtist Load (0.2ms)[0m  [1m[34mSELECT "artists".* FROM "artists" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMusic Create (0.8ms)[0m  [1m[32mINSERT INTO "musics" ("name", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["name", "Envolver"], ["created_at", "2024-07-13 23:21:00.583432"], ["updated_at", "2024-07-13 23:21:00.583432"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mMusic Load (0.1ms)[0m  [1m[34mSELECT "musics".* FROM "musics" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mMusic Load (0.1ms)[0m  [1m[34mSELECT "musics".* FROM "musics" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArtist Load (0.3ms)[0m  [1m[34mSELECT "artists".* FROM "artists" ORDER BY "artists"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMusic Load (0.1ms)[0m  [1m[34mSELECT "musics".* FROM "musics" ORDER BY "musics"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mArtist Load (0.1ms)[0m  [1m[34mSELECT "artists".* FROM "artists" ORDER BY "artists"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMusic Load (0.1ms)[0m  [1m[34mSELECT "musics".* FROM "musics" WHERE "musics"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMusic Load (0.2ms)[0m  [1m[34mSELECT "musics".* FROM "musics" WHERE "musics"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMusic Load (0.1ms)[0m  [1m[34mSELECT "musics".* FROM "musics" WHERE "musics"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mArtist Load (0.1ms)[0m  [1m[34mSELECT "artists".* FROM "artists" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mMusic Load (0.2ms)[0m  [1m[34mSELECT "musics".* FROM "musics" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mArtist Load (0.2ms)[0m  [1m[34mSELECT "artists".* FROM "artists" ORDER BY "artists"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
